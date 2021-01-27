@@ -77,8 +77,9 @@ def createAdmin():
             user.hash_password()
             user.save_to_db()
 
+
+db.init_app(app)
 if __name__ == '__main__':
-    db.init_app(app)
     ma.init_app(app)
     bcrypt = Bcrypt(app)
     jwt = JWTManager(app)
