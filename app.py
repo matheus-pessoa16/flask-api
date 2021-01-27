@@ -82,5 +82,5 @@ if __name__ == '__main__':
     ma.init_app(app)
     bcrypt = Bcrypt(app)
     jwt = JWTManager(app)
-    createAdmin()
+    # createAdmin()
     app.run(port=5000, debug=True)
