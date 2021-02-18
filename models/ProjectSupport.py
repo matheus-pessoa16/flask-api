@@ -8,10 +8,6 @@ class ProjectSupportModel(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   user_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
   project_id = db.Column(db.Integer,db.ForeignKey('project.id'),nullable=False)
-  user = db.relationship("UserModel")
-  project = db.relationship("ProjectModel")
-
-  
 
   def __init__(self, user_id, project_id):
     self.user_id = user_id

@@ -14,6 +14,8 @@ class ProjectModel(db.Model):
     user_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
 
     user = db.relationship("UserModel", backref=backref("user", cascade="all, delete-orphan"))
+
+    project_supports = db.relationship("ProjectSupportModel", lazy="dynamic",primaryjoin="ProjectModel.id == ProjectSupportModel.project_id", cascade="all, delete-orphan")
     
     def __init__(self, title, description, supports, user_id):
         self.title = title

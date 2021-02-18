@@ -1,1 +1,5 @@
 data.db
+__pycache__/
+models/__pycache__
+resources/__pycache__
+schemas/__pycache__

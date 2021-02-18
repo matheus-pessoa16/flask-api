@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import Flask, Blueprint, jsonify
 from flask_restplus import Api
 from ma import ma
@@ -31,7 +32,7 @@ app.config['PROPAGATE_EXCEPTIONS'] = True
 CORS(app)
 
 
-app.config.from_envvar('ENV_FILE_LOCATION')
+app.config['SECRET_KEY'] = os.environ['ENV_FILE_LOCATION']
 
 api.add_namespace(project_ns)
 api.add_namespace(projects_ns)
@@ -85,4 +86,4 @@ if __name__ == '__main__':
     ma.init_app(app)
     bcrypt = Bcrypt(app)
     # createAdmin()
-    app.run(port=5000, debug=True)
+    app.run(port=5000, debug=True, host="0.0.0.0")
