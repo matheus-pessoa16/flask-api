@@ -20,6 +20,8 @@ import os
 from sqlalchemy import create_engine
 
 app = Flask(__name__)
+CORS(app)
+
 bluePrint = Blueprint('api', __name__, url_prefix='/api')
 api = Api(bluePrint, doc='/doc', title='Project Flask-API Documentation')
 app.register_blueprint(bluePrint)
@@ -29,8 +31,8 @@ DB_URI = app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 engine = create_engine(DB_URI)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
-CORS(app)
 
+CORS(bluePrint) # enable CORS on the API_v1 blue print
 
 app.config['SECRET_KEY'] = os.environ['ENV_FILE_LOCATION']
 
@@ -56,7 +58,6 @@ project_supports_ns.add_resource(ProjectSupportList, "/project/<int:project_id>"
 @app.before_first_request
 def create_tables():
     db.create_all()
-
 
 @api.errorhandler(ValidationError)
 def handle_validation_error(error):
