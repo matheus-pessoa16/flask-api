@@ -23,10 +23,10 @@ app = Flask(__name__)
 bluePrint = Blueprint('api', __name__, url_prefix='/api')
 api = Api(bluePrint, doc='/doc', title='Project Flask-API Documentation')
 app.register_blueprint(bluePrint)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
-# SECRET_KEY = os.urandom(24)
-# DB_URI = app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
-# engine = create_engine(DB_URI)
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+SECRET_KEY = os.urandom(24)
+DB_URI = app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+engine = create_engine(DB_URI)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 CORS(app)
