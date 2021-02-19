@@ -23,10 +23,10 @@ app = Flask(__name__)
 bluePrint = Blueprint('api', __name__, url_prefix='/api')
 api = Api(bluePrint, doc='/doc', title='Project Flask-API Documentation')
 app.register_blueprint(bluePrint)
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
-SECRET_KEY = os.urandom(24)
-DB_URI = app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
-engine = create_engine(DB_URI)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+# SECRET_KEY = os.urandom(24)
+# DB_URI = app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+# engine = create_engine(DB_URI)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 CORS(app)
@@ -42,14 +42,6 @@ api.add_namespace(auth_ns)
 api.add_namespace(project_support_ns)
 api.add_namespace(project_supports_ns)
 
-@app.before_first_request
-def create_tables():
-    db.create_all()
-
-
-@api.errorhandler(ValidationError)
-def handle_validation_error(error):
-    return jsonify(error.messages), 400
 
 project_ns.add_resource(Project, '/<int:id>')
 projects_ns.add_resource(ProjectList, "")
@@ -61,6 +53,14 @@ project_support_ns.add_resource(CreateProjectSupport, '')
 project_supports_ns.add_resource(UserProjectSupportList, "/<int:user_id>")
 project_supports_ns.add_resource(ProjectSupportList, "/project/<int:project_id>")
 
+@app.before_first_request
+def create_tables():
+    db.create_all()
+
+
+@api.errorhandler(ValidationError)
+def handle_validation_error(error):
+    return jsonify(error.messages), 400
 
 def createAdmin():
     with app.app_context():
@@ -85,5 +85,5 @@ jwt = JWTManager(app)
 if __name__ == '__main__':
     ma.init_app(app)
     bcrypt = Bcrypt(app)
-    # createAdmin()
+    createAdmin()
     app.run(port=5000, debug=True)
