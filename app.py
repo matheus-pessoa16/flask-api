@@ -11,7 +11,7 @@ from resources.Auth import LoginApi, auth_ns
 from resources.ProjectSupport import ProjectSupport, ProjectSupportList, UserProjectSupportList, CreateProjectSupport, project_support_ns, project_supports_ns
 from marshmallow import ValidationError
 from flask_jwt_extended import JWTManager
-from flask_cors import CORS
+# from flask_cors import CORS
 
 from models.User import UserModel
 from schemas.User import UserSchema
@@ -21,7 +21,7 @@ from sqlalchemy import create_engine
 
 app = Flask(__name__)
 # CORS(app)
-CORS(app, resources=r'/api/*')
+# CORS(app, resources=r'/api/*')
 
 bluePrint = Blueprint('api', __name__, url_prefix='/api')
 
@@ -94,4 +94,4 @@ if __name__ == '__main__':
     bcrypt = Bcrypt(app)
     createAdmin()
     port = int(os.environ.get('PORT', 5000))
-    app.run(port=port, debug=True, host='0.0.0.0') #
+    app.run(port=port, debug=True) #
