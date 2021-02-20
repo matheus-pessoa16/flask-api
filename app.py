@@ -32,7 +32,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 
-CORS(bluePrint) # enable CORS on the API_v1 blue print
+# CORS(bluePrint) # enable CORS on the API_v1 blue print
 
 app.config['SECRET_KEY'] = 't1NP63m4wnBg6nyHYKfmc2TpCOGI4nss'
 
