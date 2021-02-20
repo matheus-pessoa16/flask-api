@@ -20,6 +20,7 @@ import os
 from sqlalchemy import create_engine
 
 app = Flask(__name__)
+CORS(app)
 
 bluePrint = Blueprint('api', __name__, url_prefix='/api')
 
@@ -27,10 +28,10 @@ CORS(bluePrint)
 
 api = Api(bluePrint, doc='/doc', title='Project Flask-API Documentation')
 app.register_blueprint(bluePrint)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
-# SECRET_KEY = os.urandom(24)
-# DB_URI = app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
-# engine = create_engine(DB_URI)
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+SECRET_KEY = os.urandom(24)
+DB_URI = app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+engine = create_engine(DB_URI)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 
@@ -91,5 +92,5 @@ if __name__ == '__main__':
     ma.init_app(app)
     bcrypt = Bcrypt(app)
     createAdmin()
-    # port = int(os.environ.get('PORT', 5000))
-    app.run(port=5000, debug=True) #host='0.0.0.0'
+    port = int(os.environ.get('PORT', 5000))
+    app.run(port=port, debug=True, host='0.0.0.0') #
