@@ -11,7 +11,7 @@ from resources.Auth import LoginApi, auth_ns
 from resources.ProjectSupport import ProjectSupport, ProjectSupportList, UserProjectSupportList, CreateProjectSupport, project_support_ns, project_supports_ns
 from marshmallow import ValidationError
 from flask_jwt_extended import JWTManager
-# from flask_cors import CORS
+from flask_cors import CORS
 
 from models.User import UserModel
 from schemas.User import UserSchema
@@ -20,12 +20,9 @@ import os
 from sqlalchemy import create_engine
 
 app = Flask(__name__)
-# CORS(app)
-# CORS(app, resources=r'/api/*')
+CORS(app)
 
 bluePrint = Blueprint('api', __name__, url_prefix='/api')
-
-
 
 api = Api(bluePrint, doc='/doc', title='Project Flask-API Documentation')
 app.register_blueprint(bluePrint)
