@@ -91,4 +91,4 @@ if __name__ == '__main__':
     bcrypt = Bcrypt(app)
     createAdmin()
     port = int(os.environ.get('PORT', 5000))
-    app.run(port=port, debug=True) #
+    app.run(port=port, host="0.0.0.0") #
