@@ -32,7 +32,7 @@ user = user_ns.model('User', {
 
 class User(Resource):
 
-    @jwt_required
+    @jwt_required()
     def get(self, id):
         user_data = UserModel.find_by_id(id)
         if user_data:
@@ -68,7 +68,7 @@ class User(Resource):
 
 class UserList(Resource):
     @users_ns.doc('Get all users')
-    @jwt_required
+    @jwt_required()
     def get(self):
         return user_list_schema.dump(UserModel.find_all()), 200
 

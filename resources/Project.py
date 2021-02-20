@@ -26,7 +26,7 @@ project = projects_ns.model('Project', {
 
 class Project(Resource):
 
-    @jwt_required
+    @jwt_required()
     def get(self, id):
         project_data = ProjectModel.find_by_id(id)
         if project_data:
@@ -75,7 +75,7 @@ class ProjectList(Resource):
 
     @projects_ns.expect(project)
     @projects_ns.doc('Create a Project')
-    @jwt_required
+    @jwt_required()
     def post(self):
         project_json = request.get_json()
         project_data = project_schema.load(project_json)
