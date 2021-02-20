@@ -25,16 +25,16 @@ CORS(app)
 bluePrint = Blueprint('api', __name__, url_prefix='/api')
 api = Api(bluePrint, doc='/doc', title='Project Flask-API Documentation')
 app.register_blueprint(bluePrint)
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
-SECRET_KEY = os.urandom(24)
-DB_URI = app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
-engine = create_engine(DB_URI)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+# SECRET_KEY = os.urandom(24)
+# DB_URI = app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+# engine = create_engine(DB_URI)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 
 CORS(bluePrint) # enable CORS on the API_v1 blue print
 
-app.config['SECRET_KEY'] = os.environ['ENV_FILE_LOCATION']
+app.config['SECRET_KEY'] = 't1NP63m4wnBg6nyHYKfmc2TpCOGI4nss'
 
 api.add_namespace(project_ns)
 api.add_namespace(projects_ns)
