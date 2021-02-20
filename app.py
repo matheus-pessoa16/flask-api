@@ -85,10 +85,9 @@ def createAdmin():
 
 db.init_app(app)
 jwt = JWTManager(app)
-ma.init_app(app)
 
 if __name__ == '__main__':
-    
+    ma.init_app(app)
     bcrypt = Bcrypt(app)
     createAdmin()
     port = int(os.environ.get('PORT', 5000))
