@@ -27,14 +27,14 @@ project_support = project_support_ns.model('ProjectSupport', {
 
 class ProjectSupport(Resource):
 
-  @jwt_required
+  @jwt_required()
   def get(self, id):
       project_support_data = ProjectSupportModel.find_by_id(id)
       if project_support_data:
           return project_support_schema.dump(project_support_data)
       return {'message': PROJECT_SUPPORT_NOT_FOUD}, 404
 
-  @jwt_required
+  @jwt_required()
   def delete(self,id):
       item_data = ProjectSupportModel.find_by_id(id)
       if item_data:
@@ -72,13 +72,13 @@ class CreateProjectSupport(Resource):
 class ProjectSupportList(Resource):
   
   @project_supports_ns.doc('Get all supports by project')
-  @jwt_required
+  @jwt_required()
   def get(self, project_id):
       return project_support_list_schema.dump(ProjectSupportModel.find_all_by_project_id(project_id)), 200
 
 class UserProjectSupportList(Resource):
 
   @project_supports_ns.doc('Get all projects supported by a user')
-  @jwt_required
+  @jwt_required()
   def get(self, user_id):
       return project_support_list_schema.dump(ProjectSupportModel.find_all_by_user_id(user_id)), 200

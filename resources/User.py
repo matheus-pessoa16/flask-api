@@ -39,7 +39,7 @@ class User(Resource):
             return user_schema.dump(user_data)
         return {'message':USER_NOT_FOUND}, 404
 
-    @jwt_required
+    @jwt_required()
     def delete(self,id):
         item_data = UserModel.find_by_id(id)
         if item_data:
@@ -47,7 +47,7 @@ class User(Resource):
             return {'message': "Item Deleted successfully"}, 200
         return {'message':USER_NOT_FOUND}, 404
 
-    @jwt_required
+    @jwt_required()
     @user_ns.expect(user)
     def put(self, id):
         user_data = UserModel.find_by_id(id)

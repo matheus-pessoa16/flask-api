@@ -33,7 +33,7 @@ class Project(Resource):
             return project_schema.dump(project_data)
         return {'message': PROJECT_NOT_FOUND}, 404
 
-    @jwt_required
+    @jwt_required()
     def delete(self,id):
         user_id = get_jwt_identity()
 
@@ -52,7 +52,7 @@ class Project(Resource):
         return {'message': PROJECT_NOT_FOUND}, 404
 
     @project_ns.expect(project)
-    @jwt_required
+    @jwt_required()
     def put(self, id):
         project_data = ProjectModel.find_by_id(id)
         project_json = request.get_json();
