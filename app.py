@@ -20,9 +20,11 @@ import os
 from sqlalchemy import create_engine
 
 app = Flask(__name__)
-CORS(app)
 
 bluePrint = Blueprint('api', __name__, url_prefix='/api')
+
+CORS(bluePrint)
+
 api = Api(bluePrint, doc='/doc', title='Project Flask-API Documentation')
 app.register_blueprint(bluePrint)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
@@ -54,6 +56,8 @@ project_support_ns.add_resource(ProjectSupport, '/<int:id>')
 project_support_ns.add_resource(CreateProjectSupport, '')
 project_supports_ns.add_resource(UserProjectSupportList, "/<int:user_id>")
 project_supports_ns.add_resource(ProjectSupportList, "/project/<int:project_id>")
+
+
 
 @app.before_first_request
 def create_tables():
@@ -87,5 +91,5 @@ if __name__ == '__main__':
     ma.init_app(app)
     bcrypt = Bcrypt(app)
     createAdmin()
-    port = int(os.environ.get('PORT', 5000))
-    app.run(port=port, debug=True, host='0.0.0.0')
+    # port = int(os.environ.get('PORT', 5000))
+    app.run(port=5000, debug=True) #host='0.0.0.0'
