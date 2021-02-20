@@ -20,11 +20,12 @@ import os
 from sqlalchemy import create_engine
 
 app = Flask(__name__)
-CORS(app)
+# CORS(app)
+CORS(app, resources=r'/api/*')
 
 bluePrint = Blueprint('api', __name__, url_prefix='/api')
 
-CORS(bluePrint)
+
 
 api = Api(bluePrint, doc='/doc', title='Project Flask-API Documentation')
 app.register_blueprint(bluePrint)
